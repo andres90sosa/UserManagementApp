@@ -3,8 +3,16 @@
       <span>Listado de Usuarios</span>
       <span class="spacer"></span>
     </mat-toolbar>
+
+    <div class="filter-container">
+      <mat-form-field appearance="fill">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>Filtrar por nombre</mat-label>
+        <input matInput [(ngModel)]="filterText" (ngModelChange)="onFilterChange()" placeholder="Buscar usuario">
+      </mat-form-field>
+    </div>
   
-    <mat-table [dataSource]="users" class="mat-elevation-z8">
+    <mat-table [dataSource]="filteredUsers" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
         <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
