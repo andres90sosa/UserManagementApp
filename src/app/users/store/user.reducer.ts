@@ -34,7 +34,7 @@ const _userReducer = createReducer(
   })),
   on(updateUserSuccess, (state, { user }) => ({
     ...state,
-    users: state.users.map(u => u.id === user.id ? user : u),
+    users: state.users.map(u => u?.id === user?.id ? user : u), // Verifica que 'u' y 'user' no sean null
     error: null
   })),
   on(updateUserFailure, (state, { error }) => ({

@@ -19,12 +19,14 @@
                     </mat-form-field>
                 </div>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Contraseña</mat-label>
-                    <input matInput type="password" formControlName="password" required>
-                    <mat-error *ngIf="userForm.get('password')?.invalid">La Contraseña es requerida.</mat-error>
-                  </mat-form-field>
-
+                <ng-container *ngIf="!isEditMode">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput type="password" formControlName="password" required>
+                        <mat-error *ngIf="userForm.get('password')?.invalid">La Contraseña es requerida.</mat-error>
+                    </mat-form-field>    
+                </ng-container>
+                
                 <div class="form-actions">
                     <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">
                         {{ isEditMode ? 'Actualizar' : 'Crear' }}

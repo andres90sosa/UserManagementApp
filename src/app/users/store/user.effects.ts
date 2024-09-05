@@ -35,7 +35,13 @@ export class UserEffects {
   updateUser$ = createEffect(() => this.actions$.pipe(
     ofType(updateUser),
     mergeMap(action => this.userService.updateUser(action.user).pipe(
-      map((user: User) => updateUserSuccess({ user })),
+      map((user: User | null) => {
+        if (user) {
+          return updateUserSuccess({ user });
+        } else {
+          throw new Error('User not found');
+        }
+      }),
       catchError(error => of(updateUserFailure({ error })))
     ))
   ));
@@ -48,4 +54,11 @@ export class UserEffects {
       catchError(error => of(deleteUserFailure({ error })))
     ))
   ));
+
+  updateUserSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUserSuccess),
+      map(() => loadUsers()) // Recargar la lista de usuarios después de una actualización exitosa
+    )
+  );
 }

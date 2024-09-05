@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { addUser, updateUser } from '../store/user.actions';
+import { addUser, updateUser, updateUserSuccess } from '../store/user.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectUserById } from '../store/user.selectors';
 import  {User} from '../user.model';
@@ -27,7 +27,7 @@ export class UserFormComponent implements OnInit {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['']
     });
 
     this.route.paramMap.subscribe(params => {
@@ -42,6 +42,8 @@ export class UserFormComponent implements OnInit {
         });
       }
     });
+
+    this.updatePasswordValidators();
   }
 
   onSubmit(): void {
@@ -59,5 +61,15 @@ export class UserFormComponent implements OnInit {
 
   onCancel(): void {
     this.router.navigate(['/users']);
+  }
+  
+  private updatePasswordValidators(): void {
+    if (this.isEditMode) {
+      this.userForm.get('password')?.clearValidators();
+    } else {
+      this.userForm.get('password')?.setValidators([Validators.required]);
+    }
+
+    this.userForm.get('password')?.updateValueAndValidity();
   }
 }
