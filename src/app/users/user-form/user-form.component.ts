@@ -26,7 +26,8 @@ export class UserFormComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
 
     this.route.paramMap.subscribe(params => {

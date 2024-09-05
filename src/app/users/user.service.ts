@@ -8,13 +8,13 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://api.example.com/users';
+  private apiUrl = 'http://localhost:5259/api/users';
    
   // Datos de usuarios simulados
    private simulatedUsers: User[] = [
-    { id: 1, name: 'Juan Pérez', email: 'juan.perez@example.com' },
-    { id: 2, name: 'Ana García', email: 'ana.garcia@example.com' },
-    { id: 3, name: 'Luis Fernández', email: 'luis.fernandez@example.com' }
+    { id: 1, name: 'Juan Pérez', email: 'juan.perez@example.com', password: '123' },
+    { id: 2, name: 'Ana García', email: 'ana.garcia@example.com', password: '456' },
+    { id: 3, name: 'Luis Fernández', email: 'luis.fernandez@example.com', password: '789' }
   ];
   
   constructor(private http: HttpClient) { }
